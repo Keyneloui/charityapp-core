@@ -23,10 +23,7 @@ public class ConnectionUtil {
 	 
 
 	public static Connection getConnection() {
-//		String driverClassName = "com.mysql.cj.jdbc.Driver";
-//		String url = "jdbc:mysql://localhost:3306/Charity_app";
-//		String username = "root";
-//		String password = "root";
+
 
 		Connection con = null;
 		 //try with resources, it will the close the reader.close automatically.
@@ -55,18 +52,7 @@ public class ConnectionUtil {
             throw new RuntimeException("Unable to read property files");
         }
 
-//
-//		try {
-//			Class.forName(driverClassName);
-//			con = DriverManager.getConnection(url, username, password);
-//			// System.out.println(con);
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//			throw new RuntimeException("Unable to load the driver class");
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			throw new RuntimeException("Unable to get DB Connection");
-//		}
+
 
 		return con;
 
