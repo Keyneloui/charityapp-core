@@ -7,7 +7,6 @@ import com.revature.dao.UserDAOImpl;
 import com.revature.exception.DBException;
 import com.revature.model.DonationRequest;
 import com.revature.model.DonorActivity;
-import com.revature.model.User;
 
 public class DisplayUtil {
 

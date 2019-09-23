@@ -94,11 +94,10 @@ public class DonationDAOImpl implements DonationDAO {
 			Integer requestId = rs.getInt("id");
 			String requestType = rs.getString("request_type");
 			double requestAmount = rs.getDouble("request_amount");
-			
+
 			dr.setRequestId(requestId);
 			dr.setRequestType(requestType);
 			dr.setRequestAmount(requestAmount);
-		
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -124,33 +123,7 @@ public class DonationDAOImpl implements DonationDAO {
 			pst.setInt(1, dr.getRequestId());
 			pst.setString(2, dr.getRequestType());
 			pst.setDouble(3, dr.getRequestAmount());
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		
+
 			int rows = pst.executeUpdate();
 			System.out.println("No of rows inserted:" + rows);
 		} catch (SQLException e) {

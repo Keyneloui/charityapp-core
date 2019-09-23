@@ -14,7 +14,7 @@ public class TestAdminLogin {
 	@Test
 	public void Admintest() throws DBException {
 
-		String email = "k@gmail.com";
+		String email = "k1@gmail.com";
 		String pwd = "123";
 		System.out.println("Email:" + email);
 		System.out.println("password" + pwd);
