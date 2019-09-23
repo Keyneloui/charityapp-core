@@ -1,7 +1,5 @@
 package com.revature.model;
 
-import java.sql.Date;
-
 public class DonationRequest {
 	private int id;
 	private String requestType;
