@@ -6,13 +6,14 @@ import java.sql.Connection;
 
 import org.junit.Test;
 
+import com.revature.exception.DBException;
 import com.revature.util.ConnectionUtil;
 
 
 
 public class ConnectionUtilTest {
 	@Test
-	public void connectionTest() {
+	public void connectionTest() throws DBException {
 		Connection con = ConnectionUtil.getConnection();
 		assertNotNull(con);
 	}

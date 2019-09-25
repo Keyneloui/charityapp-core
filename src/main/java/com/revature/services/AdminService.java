@@ -10,7 +10,6 @@ public class AdminService {
 
 	static AdminDAO ad = new AdminDAOImpl();
 
-
 	public Admin adminLogin(String email, String password) {
 		Logger.getInstance();
 		Admin user = null;

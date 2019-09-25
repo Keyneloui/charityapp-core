@@ -2,7 +2,6 @@ package com.revature.services;
 
 import java.util.List;
 
-
 import com.revature.dao.UserDAO;
 import com.revature.dao.UserDAOImpl;
 import com.revature.exception.DBException;
@@ -18,7 +17,7 @@ public class UserService {
 
 			udao.register(user);
 		} catch (DBException e) {
-			// System.out.println(e.getMessage());
+
 			throw new DBException("Name/Email Id already exists,Register with a new Email and Name", e);
 		}
 	}
@@ -39,7 +38,7 @@ public class UserService {
 		try {
 			list = udao.findAll();
 		} catch (DBException e) {
-			// System.out.println(e.getMessage());
+
 			throw new DBException("Unable to request your process", e);
 		}
 		return list;
@@ -54,16 +53,6 @@ public class UserService {
 			System.out.println(e.getMessage());
 		}
 
-	}
-
-	public void displayActivity()
-
-	{
-		try {
-			udao.displayActivity();
-		} catch (DBException e) {
-			System.out.println(e.getMessage());
-		}
 	}
 
 }

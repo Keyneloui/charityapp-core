@@ -7,10 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.revature.exception.DBException;
+
 public class ConnectionUtil {
 
+	private static final String UNABLE_TO_CLOSE_THE_CONNECTION = "Unable to close the connection";
 
-	public static Connection getConnection() {
+	public static Connection getConnection() throws DBException {
 		String driverClassName = "com.mysql.cj.jdbc.Driver";
 		String url = "jdbc:mysql://localhost:3306/Charity_app";
 		String username = "root";
@@ -21,13 +24,13 @@ public class ConnectionUtil {
 		try {
 			Class.forName(driverClassName);
 			con = DriverManager.getConnection(url, username, password);
-			// System.out.println(con);
+
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Unable to load the driver class");
+
+			throw new DBException("Unable to load the driver class");
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Unable to get DB Connection");
+
+			throw new DBException("Unable to get DB Connection");
 		}
 
 		return con;
@@ -35,10 +38,15 @@ public class ConnectionUtil {
 	}
 
 	public static void main(String[] args) {
-		getConnection();
+		try {
+			getConnection();
+		} catch (DBException e) {
+			System.out.println(e.getMessage());
+
+		}
 	}
 
-	public static void close(Connection con, PreparedStatement pst) {
+	public static void close(Connection con, PreparedStatement pst) throws DBException {
 
 		try {
 			if (pst != null)
@@ -46,12 +54,13 @@ public class ConnectionUtil {
 			if (con != null)
 				con.close();
 		} catch (Exception e) {
+			throw new DBException(UNABLE_TO_CLOSE_THE_CONNECTION);
 
 		}
 
 	}
 
-	public static void close(Connection con, PreparedStatement pst, ResultSet rs) {
+	public static void close(Connection con, PreparedStatement pst, ResultSet rs) throws DBException {
 		try {
 			if (rs != null)
 				rs.close();
@@ -61,12 +70,13 @@ public class ConnectionUtil {
 				con.close();
 
 		} catch (Exception e) {
+			throw new DBException(UNABLE_TO_CLOSE_THE_CONNECTION);
 
 		}
 
 	}
 
-	public static void close(Connection con, Scanner scn) {
+	public static void close(Connection con, Scanner scn) throws DBException {
 		try {
 			if (scn != null)
 				scn.close();
@@ -74,6 +84,7 @@ public class ConnectionUtil {
 				con.close();
 
 		} catch (Exception e) {
+			throw new DBException(UNABLE_TO_CLOSE_THE_CONNECTION);
 
 		}
 

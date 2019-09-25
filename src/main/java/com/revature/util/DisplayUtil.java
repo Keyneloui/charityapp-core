@@ -10,6 +10,10 @@ import com.revature.model.DonorActivity;
 
 public class DisplayUtil {
 
+	private DisplayUtil() {
+
+	}
+
 	public static void display(List<DonationRequest> list) {
 		StringBuilder content = new StringBuilder();
 		content.append("Request Id\tRequest Type\tRequest Amount\n");
@@ -71,15 +75,5 @@ public class DisplayUtil {
 	 * 
 	 * @throws DBException
 	 **/
-	public static void donorActivity() throws DBException {
-		UserDAO udao = new UserDAOImpl();
-		try {
-			udao.displayActivity();
-		} catch (DBException e) {
-			System.out.println(e.getMessage());
-			throw new DBException("Unable to process the request", e);
-
-		}
-	}
 
 }

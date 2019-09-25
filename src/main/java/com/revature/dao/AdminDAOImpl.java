@@ -56,9 +56,9 @@ public class AdminDAOImpl implements AdminDAO {
 			pst.setString(1, email);
 			pst.setString(2, pwd);
 			pst.executeUpdate();
-			// System.out.println("No of rows updated:" + rows);
+
 		} catch (SQLException e) {
-			//System.out.println(e.getMessage());
+
 			throw new DBException("unable to update request", e);
 		} finally {
 			ConnectionUtil.close(con, pst);

@@ -3,11 +3,8 @@ package com.revature.validator;
 import com.revature.exception.ValidatorException;
 import com.revature.model.User;
 
-
 public class UserValidator {
 	public void validateBeforeRegistration(User user) throws ValidatorException {
-
-		
 
 		rejectIfInvalidString(user.getName(), "Invalid Name");
 
@@ -34,19 +31,12 @@ public class UserValidator {
 		return input == 0;
 	}
 
-	private boolean isInvalidString(String name) throws ValidatorException {
-		 String values = "(.[0-9].)";
-	        if (name.matches(values ))
-	        {
-	                throw new ValidatorException("Name should not contains numeric values");
-	        }
-	        String specialCharacters = "(.[,~,!,@,#,$,%,^,&,,(,),-,_,=,+,[,{,],},|,;,:,<,>,/,?].$)";
-	        if (name.matches(specialCharacters ))
-	        {
-	                throw new ValidatorException("Name should not contains special character");
-	        }
-		return name == null || "".equals(name.trim());
-		
-	    }
-	}
+	private boolean isInvalidString(String name) {
+		String values = "(.[0-9].)";
 
+		String specialCharacters = "(.[,~,!,@,#,$,%,^,&,,(,),-,_,=,+,[,{,],},|,;,:,<,>,/,?].$)";
+
+		return name == null || name.matches(values) || name.matches(specialCharacters) || "".equals(name.trim());
+
+	}
+}

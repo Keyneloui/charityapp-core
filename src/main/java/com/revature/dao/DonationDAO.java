@@ -9,8 +9,6 @@ import com.revature.model.DonorActivity;
 public interface DonationDAO {
 	List<DonationRequest> findAll() throws DBException;
 
-	List<DonationRequest> findAllDonation() throws DBException;
-
 	void addDonations(DonationRequest dr) throws DBException;
 
 	void addDonation(DonationRequest dr) throws DBException;

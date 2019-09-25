@@ -15,21 +15,10 @@ public class DonationService {
 	static DonationDAO dao = new DonationDAOImpl();
 	static UserDAO udao = new UserDAOImpl();
 
-	public List<DonationRequest> findAll()throws DBException {
-		List list = null;
+	public List<DonationRequest> findAll() throws DBException {
+		List<DonationRequest> list = null;
 		try {
-			list=dao.findAll();
-		} catch (DBException e) {
-			System.out.println(e.getMessage());
-		}
-		return list;
-
-	}
-
-	public List<DonationRequest> findAllDonation() {
-		List list = null;
-		try {
-			dao.findAllDonation();
+			list = dao.findAll();
 		} catch (DBException e) {
 			System.out.println(e.getMessage());
 		}
@@ -42,7 +31,7 @@ public class DonationService {
 			dao.addDonations(dr);
 		} catch (DBException e) {
 			throw new DBException("Unable to add donation,Request Type and Request Id already exists", e);
-			// System.out.println(e.getMessage());
+
 		}
 	}
 
@@ -74,13 +63,13 @@ public class DonationService {
 		}
 	}
 
-	public void updateDonationss(DonationRequest drr)throws DBException {
+	public void updateDonationss(DonationRequest drr) throws DBException {
 		try {
-			String requestType=null;
+			String requestType = null;
 			dao.findByRequestType(requestType);
 			dao.updateDonationss(drr);
 		} catch (DBException e) {
-			//System.out.println(e.getMessage());
+
 			throw new DBException("Give a valid input");
 
 		}
