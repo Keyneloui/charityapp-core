@@ -9,25 +9,26 @@ import com.revature.exception.DBException;
 import com.revature.model.DonorActivity;
 import com.revature.model.User;
 
+
 public class UserService {
 	static UserDAO udao = new UserDAOImpl();
 
 	public void registerDonor(User user) throws DBException {
 		try {
-
+			
 			udao.register(user);
 		} catch (DBException e) {
 
 			throw new DBException("Name/Email Id already exists,Register with a new Email and Name", e);
-		}
+		} 
 	}
 
-	public User donorLogin(String email, String password) {
+	public User donorLogin(String email, String password) throws DBException {
 		User user = null;
 		try {
 			user = udao.donorLogin(email, password);
 		} catch (DBException e) {
-			System.out.println(e.getMessage());
+			throw new DBException("Unable to login");
 		}
 		return user;
 
@@ -44,13 +45,13 @@ public class UserService {
 		return list;
 	}
 
-	public void donorActivity(DonorActivity da) {
+	public void donorActivity(DonorActivity da) throws DBException {
 
 		try {
 
 			udao.donorActivity(da);
 		} catch (DBException e) {
-			System.out.println(e.getMessage());
+			throw new DBException("unable to display activity");
 		}
 
 	}

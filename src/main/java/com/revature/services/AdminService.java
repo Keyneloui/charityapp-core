@@ -10,13 +10,14 @@ public class AdminService {
 
 	static AdminDAO ad = new AdminDAOImpl();
 
-	public Admin adminLogin(String email, String password) {
+	public Admin adminLogin(String email, String password) throws DBException{
 		Logger.getInstance();
 		Admin user = null;
 		try {
 			user = ad.adminLogin(email, password);
 		} catch (DBException e) {
-			System.out.println(e.getMessage());
+			throw new DBException("Unable to login");
+			
 		}
 		return user;
 

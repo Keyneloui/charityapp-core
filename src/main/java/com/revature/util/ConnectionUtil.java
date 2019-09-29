@@ -15,9 +15,9 @@ public class ConnectionUtil {
 
 	public static Connection getConnection() throws DBException {
 		String driverClassName = "com.mysql.cj.jdbc.Driver";
-		String url = "jdbc:mysql://localhost:3306/Charity_app";
-		String username = "root";
-		String password = "root";
+		String url = "jdbc:mysql://trainingdb.ck1ayq0lncmp.ap-south-1.rds.amazonaws.com:3306/keyne_db";
+		String username = "keyne";
+		String password = "keyne";
 
 		Connection con = null;
 

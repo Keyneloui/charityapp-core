@@ -10,7 +10,7 @@ public class Logger {
 	    }
 	    return logger;
 	}
-	String level="INFO";
+	static String level="INFO";
 	public void info(Object message)
 	{
 	    if(level.equals("INFO"))
@@ -25,7 +25,7 @@ public class Logger {
 	        System.out.println(message);
 	    }
 	}
-	public void error(Object message)
+	public static void error(Object message)
 	{
 	    if(level.equals("ERROR"))
 	    {

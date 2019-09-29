@@ -20,7 +20,7 @@ public class DonationService {
 		try {
 			list = dao.findAll();
 		} catch (DBException e) {
-			System.out.println(e.getMessage());
+			throw new DBException("Unable to display list", e);
 		}
 		return list;
 
@@ -39,7 +39,7 @@ public class DonationService {
 		try {
 			String requestType = null;
 			dao.findByRequestType(requestType);
-			dao.updateDonations(da);
+			dao.updateDonationByDonor(da);
 			udao.donorActivity(da);
 		} catch (DBException e) {
 			throw new DBException("Give a valid input");
@@ -57,7 +57,7 @@ public class DonationService {
 
 	public void updateDonations(DonorActivity da) {
 		try {
-			dao.updateDonations(da);
+			dao.updateDonationByDonor(da);
 		} catch (DBException e) {
 			System.out.println(e.getMessage());
 		}
@@ -67,7 +67,7 @@ public class DonationService {
 		try {
 			String requestType = null;
 			dao.findByRequestType(requestType);
-			dao.updateDonationss(drr);
+			dao.updateDonationByAdmin(drr);
 		} catch (DBException e) {
 
 			throw new DBException("Give a valid input");
@@ -75,34 +75,30 @@ public class DonationService {
 		}
 	}
 
-	public DonationRequest findByRequestType(String requestType) {
+	public DonationRequest findByRequestType(String requestType) throws DBException {
 		DonationRequest dr = null;
 		try {
 			dao.findByRequestType(requestType);
 		} catch (DBException e) {
-			System.out.println(e.getMessage());
+			throw new DBException("Give a valid input");
+
 		}
 		return dr;
 
 	}
 
-	public DonationRequest request(String requestType) {
+	public DonationRequest request(String requestType) throws DBException {
 		DonationRequest dr = null;
 		try {
 			dao.request(requestType);
 		} catch (DBException e) {
-			System.out.println(e.getMessage());
+			throw new DBException("Unable to display donations");
+
 		}
 		return dr;
 
 	}
 
-	public void deleteDonation(DonationRequest drr) {
-		try {
-			dao.deleteDonation(drr);
-		} catch (DBException e) {
-			System.out.println(e.getMessage());
-		}
-	}
+	
 
 }

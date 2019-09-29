@@ -11,16 +11,12 @@ public interface DonationDAO {
 
 	void addDonations(DonationRequest dr) throws DBException;
 
-	void addDonation(DonationRequest dr) throws DBException;
+	void updateDonationByDonor(DonorActivity da) throws DBException;
 
-	void updateDonations(DonorActivity da) throws DBException;
-
-	void updateDonationss(DonationRequest drr) throws DBException;
+	void updateDonationByAdmin(DonationRequest drr) throws DBException;
 
 	DonationRequest findByRequestType(String requestType) throws DBException;
 
 	DonationRequest request(String requestType) throws DBException;
-
-	void deleteDonation(DonationRequest drr) throws DBException;
 
 }

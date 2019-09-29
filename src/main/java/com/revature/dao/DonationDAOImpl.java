@@ -28,7 +28,7 @@ public class DonationDAOImpl implements DonationDAO {
 		ResultSet rs = null;
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "select id,request_type,request_amount from donation_request";
+			String sql = "select id,request_type,request_amount from donation_request order by id";
 			pst = con.prepareStatement(sql);
 			rs = pst.executeQuery();
 			list = new ArrayList<>();
@@ -38,7 +38,7 @@ public class DonationDAOImpl implements DonationDAO {
 				list.add(dr);
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+
 			throw new DBException("Unable to display the donation list", e);
 		} finally {
 			ConnectionUtil.close(con, pst, rs);
@@ -58,7 +58,7 @@ public class DonationDAOImpl implements DonationDAO {
 			dr.setRequestAmount(requestAmount);
 
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			
 			throw new DBException("Unable to display the list", e);
 		}
 
@@ -93,35 +93,13 @@ public class DonationDAOImpl implements DonationDAO {
 
 	}
 
-	public void addDonation(DonationRequest dr) throws DBException {
-		Connection con = null;
-		PreparedStatement pst = null;
-		try {
-			con = ConnectionUtil.getConnection();
-			String sql = "insert into donation(request_type,request_amount) values ( ?,?)";
-			pst = con.prepareStatement(sql);
-
-			pst.setString(1, dr.getRequestType());
-			pst.setDouble(2, dr.getRequestAmount());
-
-			int rows = pst.executeUpdate();
-			System.out.println("No of rows inserted:" + rows);
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			throw new DBException("Unable to add request", e);
-		} finally {
-			ConnectionUtil.close(con, pst);
-		}
-
-	}
-
 	/**
 	 * Method to update the donations
 	 * 
 	 * @throws DBException
 	 **/
 
-	public void updateDonations(DonorActivity da) throws DBException {
+	public void updateDonationByDonor(DonorActivity da) throws DBException {
 		Connection con = null;
 		PreparedStatement pst = null;
 		try {
@@ -133,14 +111,14 @@ public class DonationDAOImpl implements DonationDAO {
 			pst.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+		
 			throw new DBException("unable to update your request", e);
 		} finally {
 			ConnectionUtil.close(con, pst);
 		}
 	}
 
-	public void updateDonationss(DonationRequest drr) throws DBException {
+	public void updateDonationByAdmin(DonationRequest drr) throws DBException {
 		Connection con = null;
 		PreparedStatement pst = null;
 		try {
@@ -152,7 +130,7 @@ public class DonationDAOImpl implements DonationDAO {
 			pst.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+
 			throw new DBException("unable to update request", e);
 		} finally {
 			ConnectionUtil.close(con, pst);
@@ -181,7 +159,7 @@ public class DonationDAOImpl implements DonationDAO {
 				dr = toRow1(rs);
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			
 			throw new DBException("Invalid Request", e);
 
 		} finally {
@@ -232,25 +210,6 @@ public class DonationDAOImpl implements DonationDAO {
 		}
 
 		return dr;
-	}
-
-	public void deleteDonation(DonationRequest drr) throws DBException {
-		Connection con = null;
-		PreparedStatement pst = null;
-		try {
-			con = ConnectionUtil.getConnection();
-			String sql = "delete from donation_request where request_type=?";
-			pst = con.prepareStatement(sql);
-			pst.setString(1, drr.getRequestType());
-
-			pst.executeUpdate();
-
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			throw new DBException("unable to update request", e);
-		} finally {
-			ConnectionUtil.close(con, pst);
-		}
 	}
 
 }
