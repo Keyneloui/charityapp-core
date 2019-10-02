@@ -5,10 +5,19 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
+	private int id;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	@Override
 	public String toString() {
-		return " Name=" + name + ", Email=" + email + ", Password=" + password + ".";
+		return "User [name=" + name + ", email=" + email + ", password=" + password + ", id=" + id + "]";
 	}
 
 	public String getName() {

@@ -1,5 +1,8 @@
 package com.revature.maven_core;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import org.junit.Test;
 
 import com.revature.dao.AdminDAO;
@@ -14,12 +17,30 @@ public class TestAdminLogin {
 	@Test
 	public void Admintest() throws DBException {
 
-		String email = "k1@gmail.com";
-		String pwd = "123";
-		System.out.println("Email:" + email);
-		System.out.println("password" + pwd);
-		AdminDAO ad=new AdminDAOImpl();
-		Admin admin = ad.adminLogin(email, pwd);
+		String email = "k@gmail.com";
+		String password = "123";
+		AdminDAO admindao = new AdminDAOImpl();
+		Admin admin = null;
+		try {
+			admin = admindao.adminLogin(email, password);
+		} catch (DBException e) {
+			e.printStackTrace();
+		}
+		assertNotNull(admin);
+	}
+	@Test
+	public void testInValidLogin() {
+
+		String email = "";
+		String password = "";
+		AdminDAO admindao = new AdminDAOImpl();
+		Admin admin = null;
+		try {
+			admin = admindao.adminLogin(email, password);
+		} catch (DBException e) {
+			e.printStackTrace();
+		}
+		assertNull(admin);
 	}
 
 }

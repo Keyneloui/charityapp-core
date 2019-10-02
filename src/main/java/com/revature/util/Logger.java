@@ -32,5 +32,9 @@ public class Logger {
 	        System.out.println(message);
 	    }
 	}
+	public void error(Exception e) {
+		if( level.equals("ERROR") )
+			System.out.println(e);
+	}
 
 }

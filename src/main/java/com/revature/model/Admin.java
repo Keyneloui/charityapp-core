@@ -2,6 +2,15 @@ package com.revature.model;
 
 public class Admin {
 	private String email;
+	private int id;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getEmail() {
 		return email;
@@ -32,7 +41,7 @@ public class Admin {
 
 	@Override
 	public String toString() {
-		return "Admin [email=" + email + ", name=" + name + ", password=" + password + "]";
+		return "Admin [email=" + email + ", id=" + id + ", name=" + name + ", password=" + password + "]";
 	}
 
 }

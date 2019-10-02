@@ -14,8 +14,13 @@ import com.revature.util.ConnectionUtil;
 public class ConnectionUtilTest {
 	@Test
 	public void connectionTest() throws DBException {
-		Connection con = ConnectionUtil.getConnection();
-		assertNotNull(con);
+		Connection connection = null;;
+		try {
+			connection = ConnectionUtil.getConnection();
+		} catch (DBException e) {
+			System.out.println(e.getMessage());
+		}
+		assertNotNull(connection);
 	}
 
 }

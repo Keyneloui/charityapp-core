@@ -58,7 +58,7 @@ public class DonationDAOImpl implements DonationDAO {
 			dr.setRequestAmount(requestAmount);
 
 		} catch (SQLException e) {
-			
+
 			throw new DBException("Unable to display the list", e);
 		}
 
@@ -111,7 +111,7 @@ public class DonationDAOImpl implements DonationDAO {
 			pst.executeUpdate();
 
 		} catch (SQLException e) {
-		
+
 			throw new DBException("unable to update your request", e);
 		} finally {
 			ConnectionUtil.close(con, pst);
@@ -159,7 +159,7 @@ public class DonationDAOImpl implements DonationDAO {
 				dr = toRow1(rs);
 			}
 		} catch (SQLException e) {
-			
+
 			throw new DBException("Invalid Request", e);
 
 		} finally {

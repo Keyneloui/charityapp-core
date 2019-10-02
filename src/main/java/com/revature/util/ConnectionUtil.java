@@ -11,40 +11,31 @@ import com.revature.exception.DBException;
 
 public class ConnectionUtil {
 
-	private static final String UNABLE_TO_CLOSE_THE_CONNECTION = "Unable to close the connection";
+	private static final String DRIVERCLASSNAME = "com.mysql.jdbc.Driver";
+	private static final String URL = "jdbc:mysql://trainingdb.ck1ayq0lncmp.ap-south-1.rds.amazonaws.com:3306/keyne_db";
+	private static final String USERNAME = "keyne";
+	private static final String PASSWORD = "keyne";
 
 	public static Connection getConnection() throws DBException {
-		String driverClassName = "com.mysql.cj.jdbc.Driver";
-		String url = "jdbc:mysql://trainingdb.ck1ayq0lncmp.ap-south-1.rds.amazonaws.com:3306/keyne_db";
-		String username = "keyne";
-		String password = "keyne";
-
+		
 		Connection con = null;
 
 		try {
-			Class.forName(driverClassName);
-			con = DriverManager.getConnection(url, username, password);
+			Class.forName(DRIVERCLASSNAME);
+			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
 		} catch (ClassNotFoundException e) {
 
-			throw new DBException("Unable to load the driver class");
+			throw new DBException(MessageConstant.DRIVER_CLASS , e);
 		} catch (SQLException e) {
 
-			throw new DBException("Unable to get DB Connection");
+			throw new DBException(MessageConstant.SQL_CONNECTION, e);
 		}
 
 		return con;
 
 	}
 
-	public static void main(String[] args) {
-		try {
-			getConnection();
-		} catch (DBException e) {
-			System.out.println(e.getMessage());
-
-		}
-	}
 
 	public static void close(Connection con, PreparedStatement pst) throws DBException {
 
@@ -54,7 +45,7 @@ public class ConnectionUtil {
 			if (con != null)
 				con.close();
 		} catch (Exception e) {
-			throw new DBException(UNABLE_TO_CLOSE_THE_CONNECTION);
+			throw new DBException(MessageConstant.CLOSE_CONNECTION,e);
 
 		}
 
@@ -70,7 +61,7 @@ public class ConnectionUtil {
 				con.close();
 
 		} catch (Exception e) {
-			throw new DBException(UNABLE_TO_CLOSE_THE_CONNECTION);
+			throw new DBException(MessageConstant.CLOSE_CONNECTION,e);
 
 		}
 
@@ -84,7 +75,7 @@ public class ConnectionUtil {
 				con.close();
 
 		} catch (Exception e) {
-			throw new DBException(UNABLE_TO_CLOSE_THE_CONNECTION);
+			throw new DBException(MessageConstant.CLOSE_CONNECTION,e);
 
 		}
 

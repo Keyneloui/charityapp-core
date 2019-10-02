@@ -20,12 +20,12 @@ public class DonorActivity {
 		this.requestType = requestType;
 	}
 
-	public String getEmailId() {
-		return emailId;
+	public int getId() {
+		return id;
 	}
 
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public double getAmount() {
@@ -47,13 +47,13 @@ public class DonorActivity {
 		this.requestId = requestId;
 	}
 
-	private String emailId;
+	private int id;
 	private double amount;
 
 	@Override
 	public String toString() {
 		return "DonorActivity [name=" + name + ", requestType=" + requestType + ", requestId=" + requestId
-				+ ", emailId=" + emailId + ", amount=" + amount + "]";
+				+ ", UserId=" + id + ", amount=" + amount + "]";
 	}
 
 }

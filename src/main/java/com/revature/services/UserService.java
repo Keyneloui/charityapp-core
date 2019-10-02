@@ -9,18 +9,17 @@ import com.revature.exception.DBException;
 import com.revature.model.DonorActivity;
 import com.revature.model.User;
 
-
 public class UserService {
 	static UserDAO udao = new UserDAOImpl();
 
 	public void registerDonor(User user) throws DBException {
 		try {
-			
+
 			udao.register(user);
 		} catch (DBException e) {
 
-			throw new DBException("Name/Email Id already exists,Register with a new Email and Name", e);
-		} 
+			throw new DBException(e.getMessage());
+		}
 	}
 
 	public User donorLogin(String email, String password) throws DBException {
@@ -28,7 +27,7 @@ public class UserService {
 		try {
 			user = udao.donorLogin(email, password);
 		} catch (DBException e) {
-			throw new DBException("Unable to login");
+			throw new DBException(e.getMessage());
 		}
 		return user;
 
@@ -40,7 +39,7 @@ public class UserService {
 			list = udao.findAll();
 		} catch (DBException e) {
 
-			throw new DBException("Unable to request your process", e);
+			throw new DBException(e.getMessage());
 		}
 		return list;
 	}
@@ -51,7 +50,7 @@ public class UserService {
 
 			udao.donorActivity(da);
 		} catch (DBException e) {
-			throw new DBException("unable to display activity");
+			throw new DBException(e.getMessage());
 		}
 
 	}

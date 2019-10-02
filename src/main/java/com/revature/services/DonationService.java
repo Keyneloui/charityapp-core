@@ -10,6 +10,7 @@ import com.revature.exception.DBException;
 import com.revature.model.DonationRequest;
 import com.revature.model.DonorActivity;
 
+
 public class DonationService {
 
 	static DonationDAO dao = new DonationDAOImpl();
@@ -20,7 +21,7 @@ public class DonationService {
 		try {
 			list = dao.findAll();
 		} catch (DBException e) {
-			throw new DBException("Unable to display list", e);
+			throw new DBException(e.getMessage());
 		}
 		return list;
 
@@ -30,36 +31,35 @@ public class DonationService {
 		try {
 			dao.addDonations(dr);
 		} catch (DBException e) {
-			throw new DBException("Unable to add donation,Request Type and Request Id already exists", e);
+			throw new DBException(e.getMessage());
 
 		}
 	}
 
 	public void contributeDonation(DonorActivity da) throws DBException {
 		try {
-			String requestType = null;
-			dao.findByRequestType(requestType);
+
 			dao.updateDonationByDonor(da);
 			udao.donorActivity(da);
 		} catch (DBException e) {
-			throw new DBException("Give a valid input");
+			throw new DBException(e.getMessage());
 		}
 
 	}
 
-	public void addDonation(DonationRequest dr) {
+	public void addDonation(DonationRequest dr) throws DBException {
 		try {
 			dao.addDonations(dr);
 		} catch (DBException e) {
-			System.out.println(e.getMessage());
+			throw new DBException(e.getMessage());
 		}
 	}
 
-	public void updateDonations(DonorActivity da) {
+	public void updateDonations(DonorActivity da) throws DBException {
 		try {
 			dao.updateDonationByDonor(da);
 		} catch (DBException e) {
-			System.out.println(e.getMessage());
+			throw new DBException(e.getMessage());
 		}
 	}
 
@@ -70,7 +70,7 @@ public class DonationService {
 			dao.updateDonationByAdmin(drr);
 		} catch (DBException e) {
 
-			throw new DBException("Give a valid input");
+			throw new DBException(e.getMessage());
 
 		}
 	}
@@ -80,8 +80,7 @@ public class DonationService {
 		try {
 			dao.findByRequestType(requestType);
 		} catch (DBException e) {
-			throw new DBException("Give a valid input");
-
+			throw new DBException(e.getMessage());
 		}
 		return dr;
 
@@ -92,13 +91,10 @@ public class DonationService {
 		try {
 			dao.request(requestType);
 		} catch (DBException e) {
-			throw new DBException("Unable to display donations");
-
+			throw new DBException(e.getMessage());
 		}
 		return dr;
 
 	}
-
-	
 
 }

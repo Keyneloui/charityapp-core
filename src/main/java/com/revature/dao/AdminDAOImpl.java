@@ -17,7 +17,7 @@ public class AdminDAOImpl implements AdminDAO {
 	 * @throws DBException
 	 **/
 
-	public Admin adminLogin(String emailIds, String passwords) throws DBException {
+	public Admin adminLogin(String emailId, String password) throws DBException {
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -26,19 +26,18 @@ public class AdminDAOImpl implements AdminDAO {
 			con = ConnectionUtil.getConnection();
 			String sql = "select id,name,email from admin where email = ? and password = ?";
 			pst = con.prepareStatement(sql);
-			pst.setString(1, emailIds);
-			pst.setString(2, passwords);
+			pst.setString(1, emailId);
+			pst.setString(2, password);
 			rs = pst.executeQuery();
 			if (rs.next()) {
 				user = new Admin();
-
-				user.setEmail(emailIds);
-				user.setPassword(passwords);
-				System.out.println("Login Success");
-			}
+                user.setId(rs.getInt("id"));
+				user.setEmail(rs.getString("email"));
+				user.setName(rs.getString("name"));
+				}
 
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+
 			throw new DBException("Unable to login", e);
 		} finally {
 			ConnectionUtil.close(con, pst, rs);
