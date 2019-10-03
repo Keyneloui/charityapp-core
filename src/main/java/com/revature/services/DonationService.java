@@ -66,7 +66,7 @@ public class DonationService {
 	public void updateDonationss(DonationRequest drr) throws DBException {
 		try {
 			String requestType = null;
-			dao.findByRequestType(requestType);
+			//dao.findByRequestType(requestType);
 			dao.updateDonationByAdmin(drr);
 		} catch (DBException e) {
 

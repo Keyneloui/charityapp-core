@@ -76,11 +76,11 @@ public class DonationDAOImpl implements DonationDAO {
 		PreparedStatement pst = null;
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "insert into donation_request(id,request_type,request_amount) values ( ?,?,?)";
+			String sql = "insert into donation_request(request_type,request_amount) values ( ?,?)";
 			pst = con.prepareStatement(sql);
-			pst.setInt(1, dr.getRequestId());
-			pst.setString(2, dr.getRequestType());
-			pst.setDouble(3, dr.getRequestAmount());
+			
+			pst.setString(1, dr.getRequestType());
+			pst.setDouble(2, dr.getRequestAmount());
 
 			pst.executeUpdate();
 
@@ -104,7 +104,7 @@ public class DonationDAOImpl implements DonationDAO {
 		PreparedStatement pst = null;
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "update donation_request set request_amount= request_amount - ? where request_type=?";
+			String sql = "update donation_request set request_amount= request_amount - ? where id=?";
 			pst = con.prepareStatement(sql);
 			pst.setString(2, da.getRequestType());
 			pst.setDouble(1, da.getAmount());
@@ -123,7 +123,7 @@ public class DonationDAOImpl implements DonationDAO {
 		PreparedStatement pst = null;
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "update donation_request set request_amount= request_amount + ? where request_type=?";
+			String sql = "update donation_request set request_amount= request_amount + ? where id=?";
 			pst = con.prepareStatement(sql);
 			pst.setString(2, drr.getRequestType());
 			pst.setDouble(1, drr.getRequestAmount());

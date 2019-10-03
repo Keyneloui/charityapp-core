@@ -16,5 +16,7 @@ public interface UserDAO {
 	List<DonorActivity> findAll() throws DBException;
 
 	void donorActivity(DonorActivity da) throws DBException;
+	
+	void displayActivity() throws DBException;
 
 }

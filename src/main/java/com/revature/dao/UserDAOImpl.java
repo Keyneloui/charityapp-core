@@ -94,7 +94,7 @@ public class UserDAOImpl implements UserDAO {
 		List<DonorActivity> list = null;
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "select name,request_type,amount_funded from donor d,activity a where d.id=a.user_id";
+			String sql = "select name,request_type,amount_funded from donor d,activity a,donation_request dr where d.id=a.user_id and dr.id=a.request_id";
 			pst = con.prepareStatement(sql);
 			rs = pst.executeQuery();
 			list = new ArrayList<>();
@@ -146,7 +146,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement pst = null;
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "insert into activity(user_id,amount_funded,request_type) values ( ?,?,?)";
+			String sql = "insert into activity(user_id,amount_funded,request_id) values ( ?,?,?)";
 			pst = con.prepareStatement(sql);
 			pst.setInt(1, da.getId());
 			pst.setDouble(2, da.getAmount());
@@ -159,6 +159,36 @@ public class UserDAOImpl implements UserDAO {
 
 		} finally {
 			ConnectionUtil.close(con, pst);
+		}
+
+	}
+	public void displayActivity() throws DBException {
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql1 = "select email_id,amount,request_type from activity ";
+			pst = con.prepareStatement(sql1);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+
+				int donorId = rs.getInt("email_id");
+				Double amount = rs.getDouble("amount");
+				String requestType = rs.getString("request_type");
+			
+				StringBuilder content = new StringBuilder();
+				content.append("Email Id\tAmount\tRequest Type\t\n");
+				content.append(rs.getInt("email_id")).append("\t\t");
+				content.append(rs.getString("amount")).append("\t");
+				content.append(rs.getString("request_type")).append("\t");
+				content.append("\n");
+				System.out.println(content);
+			}
+		} catch (SQLException e) {
+			throw new DBException("Unable to process your request", e);
+		} finally {
+			ConnectionUtil.close(con, pst, rs);
 		}
 
 	}
