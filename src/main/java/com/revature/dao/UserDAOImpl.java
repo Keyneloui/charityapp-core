@@ -35,10 +35,10 @@ public class UserDAOImpl implements UserDAO {
 			rs = pst.executeQuery();
 			if (rs.next()) {
 				user = new User();
-             user.setId(rs.getInt("id"));
+                user.setId(rs.getInt("id"));
 				user.setName(rs.getString("name"));
 				user.setEmail(rs.getString("email_id"));
-				user.setPassword(rs.getString("password"));
+				//user.setPassword(rs.getString("password"));
 
 			}
 		} catch (SQLException e) {

@@ -61,7 +61,7 @@ public class DisplayUtil {
 		for (DonorActivity user : list) {
 
 			content.append(user.getName()).append("\t");
-			content.append(user.getId()).append("\t");
+			content.append(user.getEmailId()).append("\t");
 			content.append("\n");
 		}
 		System.out.println(content);
