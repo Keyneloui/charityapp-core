@@ -55,4 +55,16 @@ public class UserService {
 
 	}
 
+	public List<DonorActivity> findMyDonation() throws DBException {
+		List<DonorActivity> list = null;
+		try {
+			list = udao.findMyDonation();
+		} catch (DBException e) {
+
+			throw new DBException(e.getMessage());
+		}
+		return list;
+		
+	}
+
 }

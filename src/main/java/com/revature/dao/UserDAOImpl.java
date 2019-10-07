@@ -38,7 +38,7 @@ public class UserDAOImpl implements UserDAO {
                 user.setId(rs.getInt("id"));
 				user.setName(rs.getString("name"));
 				user.setEmail(rs.getString("email_id"));
-				//user.setPassword(rs.getString("password"));
+				
 
 			}
 		} catch (SQLException e) {
@@ -192,5 +192,51 @@ public class UserDAOImpl implements UserDAO {
 		}
 
 	}
+	public List<DonorActivity> findMyDonation() throws DBException {
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		DonorActivity da = null;
+		List<DonorActivity> list = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "select request_type,amount_funded from activity where user_id=?";
+			pst = con.prepareStatement(sql);
+			rs = pst.executeQuery();
+			list = new ArrayList<>();
+			while (rs.next()) {
+
+				da = toRow1(rs);
+				list.add(da);
+			}
+
+		} catch (SQLException e) {
+
+			throw new DBException("Unable to list Donor", e);
+		} finally {
+			ConnectionUtil.close(con, pst, rs);
+		}
+		return list;
+
+	}
+
+	private DonorActivity toRow1(ResultSet rs) throws DBException {
+		DonorActivity da = null;
+
+		try {
+
+			
+
+			String requestType = rs.getString("request_type");
+			double amount = rs.getDouble("amount_funded");
+			da = new DonorActivity();
+			da.setRequestType(requestType);
+			da.setAmount(amount);
+		} catch (SQLException e) {
+			throw new DBException("Unable to display", e);
+		}
+		return da;
+	}
+
 
 }
