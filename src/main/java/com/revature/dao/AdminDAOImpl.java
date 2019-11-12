@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import com.revature.exception.DBException;
 import com.revature.model.Admin;
 import com.revature.util.ConnectionUtil;
+import com.revature.util.MessageConstant;
 
 public class AdminDAOImpl implements AdminDAO {
 
@@ -38,12 +39,17 @@ public class AdminDAOImpl implements AdminDAO {
 
 		} catch (SQLException e) {
 
-			throw new DBException("Unable to login", e);
+			throw new DBException(MessageConstant.INVALID_LOGIN_CREDENTIALS);
 		} finally {
 			ConnectionUtil.close(con, pst, rs);
 		}
 		return user;
 	}
+	/**
+	 * method for resetting the admin email
+	 * 
+	 * @throws DBException
+	 **/
 
 	public void admin(String email, String pwd) throws DBException {
 		Connection con = null;
@@ -58,7 +64,7 @@ public class AdminDAOImpl implements AdminDAO {
 
 		} catch (SQLException e) {
 
-			throw new DBException("unable to update request", e);
+			throw new DBException(MessageConstant.INVALID_INPUTS);
 		} finally {
 			ConnectionUtil.close(con, pst);
 		}

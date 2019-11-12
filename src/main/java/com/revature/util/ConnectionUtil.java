@@ -8,13 +8,25 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.revature.exception.DBException;
+import com.revature.exception.ServiceException;
 
 public class ConnectionUtil {
+	
+	private ConnectionUtil()
+	{
+		
+	}
 
 	private static final String DRIVERCLASSNAME = "com.mysql.jdbc.Driver";
 	private static final String URL = "jdbc:mysql://trainingdb.ck1ayq0lncmp.ap-south-1.rds.amazonaws.com:3306/keyne_db";
 	private static final String USERNAME = "keyne";
 	private static final String PASSWORD = "keyne";
+	
+	/**
+	 * method to get the  connection from the database
+	 * 
+	 * @throws DBException
+	 **/
 
 	public static Connection getConnection() throws DBException {
 		
@@ -35,6 +47,11 @@ public class ConnectionUtil {
 		return con;
 
 	}
+	/**
+	 * method to close the  connection from the database
+	 * 
+	 * @throws DBException
+	 **/
 
 
 	public static void close(Connection con, PreparedStatement pst) throws DBException {
@@ -50,6 +67,11 @@ public class ConnectionUtil {
 		}
 
 	}
+	/**
+	 * method to close the  connection from the database
+	 * 
+	 * @throws DBException
+	 **/
 
 	public static void close(Connection con, PreparedStatement pst, ResultSet rs) throws DBException {
 		try {
@@ -66,6 +88,11 @@ public class ConnectionUtil {
 		}
 
 	}
+	/**
+	 * method to close the  connection from the database
+	 * 
+	 * @throws DBException
+	 **/
 
 	public static void close(Connection con, Scanner scn) throws DBException {
 		try {

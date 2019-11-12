@@ -1,7 +1,8 @@
 package com.revature.exception;
 
 public class ValidatorException extends Exception {
-	/**
+	/**method which defines the ValidatorException which is extending from the
+	 * parent exception
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;

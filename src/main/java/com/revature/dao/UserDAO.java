@@ -19,6 +19,5 @@ public interface UserDAO {
 	
 	void displayActivity() throws DBException;
 	
-	List<DonorActivity> findMyDonation() throws DBException;
-
+	
 }

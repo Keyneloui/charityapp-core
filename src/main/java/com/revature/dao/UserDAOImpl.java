@@ -13,8 +13,13 @@ import com.revature.exception.DBException;
 import com.revature.model.DonorActivity;
 import com.revature.model.User;
 import com.revature.util.ConnectionUtil;
+import com.revature.util.MessageConstant;
 
 public class UserDAOImpl implements UserDAO {
+
+	private static final String REQUEST_TYPE = "request_type";
+	
+
 	/**
 	 * method for donor login
 	 * 
@@ -35,15 +40,14 @@ public class UserDAOImpl implements UserDAO {
 			rs = pst.executeQuery();
 			if (rs.next()) {
 				user = new User();
-                user.setId(rs.getInt("id"));
+				user.setId(rs.getInt("id"));
 				user.setName(rs.getString("name"));
 				user.setEmail(rs.getString("email_id"));
-				
 
 			}
 		} catch (SQLException e) {
 
-			throw new DBException("Unable to login", e);
+			throw new DBException(MessageConstant.INVALID_LOGIN_CREDENTIALS);
 		} finally {
 			ConnectionUtil.close(con, pst, rs);
 		}
@@ -74,7 +78,7 @@ public class UserDAOImpl implements UserDAO {
 
 		} catch (SQLException e) {
 
-			throw new DBException("Email,Name already exists\nRegister with a new Email and Name", e);
+			throw new DBException(MessageConstant.ACCOUNT_EXISTS);
 		} finally {
 			ConnectionUtil.close(con, pst);
 		}
@@ -90,7 +94,7 @@ public class UserDAOImpl implements UserDAO {
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		DonorActivity da = null;
+		DonorActivity donorActivity = null;
 		List<DonorActivity> list = null;
 		try {
 			con = ConnectionUtil.getConnection();
@@ -100,68 +104,79 @@ public class UserDAOImpl implements UserDAO {
 			list = new ArrayList<>();
 			while (rs.next()) {
 
-				da = toRow(rs);
-				list.add(da);
+				donorActivity = toRow(rs);
+				list.add(donorActivity);
 			}
 
 		} catch (SQLException e) {
 
-			throw new DBException("Unable to list Donor", e);
+			throw new DBException(MessageConstant.DONOR_LIST);
 		} finally {
 			ConnectionUtil.close(con, pst, rs);
 		}
 		return list;
 
 	}
+	/**
+	 * method to return the result set for viewing the donor list
+	 * 
+	 * @throws DBException
+	 **/
 
 	private DonorActivity toRow(ResultSet rs) throws DBException {
-		DonorActivity da = null;
+		DonorActivity donorActivity = null;
 
 		try {
 
 			String name = rs.getString("name");
 
-			String requestType = rs.getString("request_type");
+			String requestType = rs.getString(REQUEST_TYPE);
 			double amount = rs.getDouble("amount_funded");
-			da = new DonorActivity();
+			donorActivity = new DonorActivity();
 
-			da.setName(name);
+			donorActivity.setName(name);
 
-			da.setRequestType(requestType);
-			da.setAmount(amount);
+			donorActivity.setRequestType(requestType);
+			donorActivity.setAmount(amount);
 		} catch (SQLException e) {
-			throw new DBException("Unable to display", e);
+			throw new DBException(MessageConstant.DONOR_LIST);
 		}
-		return da;
+		return donorActivity;
 	}
 
 	/**
-	 * method to add donor activity
+	 * method to add donor contributions
 	 * 
 	 * @throws DBException
 	 **/
 
-	public void donorActivity(DonorActivity da) throws DBException {
+	public void donorActivity(DonorActivity donorActivity) throws DBException {
 		Connection con = null;
 		PreparedStatement pst = null;
 		try {
 			con = ConnectionUtil.getConnection();
 			String sql = "insert into activity(user_id,amount_funded,request_id) values ( ?,?,?)";
 			pst = con.prepareStatement(sql);
-			pst.setInt(1, da.getId());
-			pst.setDouble(2, da.getAmount());
-			pst.setString(3, da.getRequestType());
+			pst.setInt(1, donorActivity.getId());
+			pst.setDouble(2, donorActivity.getAmount());
+			pst.setString(3, donorActivity.getRequestType());
 			pst.executeUpdate();
 
 		} catch (SQLException e) {
 
-			throw new DBException("Unable to display the donor activity", e);
+			throw new DBException(MessageConstant.DONOR_ACTIVITY);
 
 		} finally {
 			ConnectionUtil.close(con, pst);
 		}
 
 	}
+	/**
+	 * method to view the donor contributions
+	 * 
+	 * @throws DBException
+	 **/
+
 	public void displayActivity() throws DBException {
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -173,15 +188,11 @@ public class UserDAOImpl implements UserDAO {
 			rs = pst.executeQuery();
 			while (rs.next()) {
 
-				int donorId = rs.getInt("email_id");
-				Double amount = rs.getDouble("amount");
-				String requestType = rs.getString("request_type");
-			
 				StringBuilder content = new StringBuilder();
-				content.append("Email Id\tAmount\tRequest Type\t\n");
+				content.append("donor Id\tAmount\tRequest Type\t\n");
 				content.append(rs.getInt("email_id")).append("\t\t");
 				content.append(rs.getString("amount")).append("\t");
-				content.append(rs.getString("request_type")).append("\t");
+				content.append(rs.getString(REQUEST_TYPE)).append("\t");
 				content.append("\n");
 				System.out.println(content);
 			}
@@ -192,51 +203,6 @@ public class UserDAOImpl implements UserDAO {
 		}
 
 	}
-	public List<DonorActivity> findMyDonation() throws DBException {
-		Connection con = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		DonorActivity da = null;
-		List<DonorActivity> list = null;
-		try {
-			con = ConnectionUtil.getConnection();
-			String sql = "select request_type,amount_funded from activity where user_id=?";
-			pst = con.prepareStatement(sql);
-			rs = pst.executeQuery();
-			list = new ArrayList<>();
-			while (rs.next()) {
 
-				da = toRow1(rs);
-				list.add(da);
-			}
-
-		} catch (SQLException e) {
-
-			throw new DBException("Unable to list Donor", e);
-		} finally {
-			ConnectionUtil.close(con, pst, rs);
-		}
-		return list;
-
-	}
-
-	private DonorActivity toRow1(ResultSet rs) throws DBException {
-		DonorActivity da = null;
-
-		try {
-
-			
-
-			String requestType = rs.getString("request_type");
-			double amount = rs.getDouble("amount_funded");
-			da = new DonorActivity();
-			da.setRequestType(requestType);
-			da.setAmount(amount);
-		} catch (SQLException e) {
-			throw new DBException("Unable to display", e);
-		}
-		return da;
-	}
-
-
+	
 }

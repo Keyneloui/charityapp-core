@@ -11,7 +11,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class MailUtil {
-	 public static void sendMailUsingTLS(String host,
+	 private static final String SMTP_GMAIL_COM = "smtp.gmail.com";
+	public static void sendMailUsingTLS(String host,
 	            String username, String password, String from,
 	            String to, String subject, String text) {
 	         Properties properties = new Properties();
@@ -19,7 +20,7 @@ public class MailUtil {
 	         properties.put("mail.smtp.auth", "true");
 	         properties.put("mail.smtp.starttls.enable", "true");
 	         properties.put("mail.smtp.port", "587");
-	         properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+	         properties.put("mail.smtp.ssl.trust", SMTP_GMAIL_COM);
 	         sendMail(properties, username, password, from, to,
 	            subject, text);
 	      }
@@ -27,7 +28,7 @@ public class MailUtil {
 	            String username, String password, String from,
 	            String to, String subject, String text) {
 	         Properties properties = new Properties();
-	         properties.put("mail.smtp.host", "smtp.gmail.com");
+	         properties.put("mail.smtp.host", SMTP_GMAIL_COM);
 	         properties.put("mail.smtp.socketFactory.port", "465");
 	         properties.put("mail.smtp.socketFactory.class",
 	            "javax.net.ssl.SSLSocketFactory");
@@ -62,7 +63,7 @@ public class MailUtil {
 	         }
 	      }
 	      public static void main(String[] args) {
-	         String host = "smtp.gmail.com";
+	         String host = SMTP_GMAIL_COM;
 	         String username = "keyne.loui@gmail.com";
 	         String password = "zzxkrzecjtcnmzsq"; 
 	         String fromAddress = "keyne.loui@gmail.com";

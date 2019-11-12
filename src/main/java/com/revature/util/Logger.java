@@ -18,7 +18,7 @@ public class Logger {
 	        System.out.println(message);
 	    }
 	}
-	public void debug(Object message)
+	public static void debug(Object message)
 	{
 	    if(level.equals("DEBUG"))
 	    {

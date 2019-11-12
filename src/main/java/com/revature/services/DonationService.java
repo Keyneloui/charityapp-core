@@ -7,93 +7,92 @@ import com.revature.dao.DonationDAOImpl;
 import com.revature.dao.UserDAO;
 import com.revature.dao.UserDAOImpl;
 import com.revature.exception.DBException;
+import com.revature.exception.ServiceException;
 import com.revature.model.DonationRequest;
 import com.revature.model.DonorActivity;
 
-
 public class DonationService {
 
-	static DonationDAO dao = new DonationDAOImpl();
+	static DonationDAO donationDao = new DonationDAOImpl();
 	static UserDAO udao = new UserDAOImpl();
 
-	public List<DonationRequest> findAll() throws DBException {
+	public List<DonationRequest> findAll() throws ServiceException {
 		List<DonationRequest> list = null;
 		try {
-			list = dao.findAll();
+			list = donationDao.findAll();
 		} catch (DBException e) {
-			throw new DBException(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
 		return list;
 
 	}
 
-	public void addDonations(DonationRequest dr) throws DBException {
+	public void addDonations(DonationRequest donationrequest) throws ServiceException {
 		try {
-			dao.addDonations(dr);
+			donationDao.addDonations(donationrequest);
 		} catch (DBException e) {
-			throw new DBException(e.getMessage());
+			throw new ServiceException(e.getMessage());
 
 		}
 	}
 
-	public void contributeDonation(DonorActivity da) throws DBException {
+	public void contributeDonation(DonorActivity donorActivity) throws ServiceException {
 		try {
 
-			dao.updateDonationByDonor(da);
-			udao.donorActivity(da);
+			donationDao.updateDonationByDonor(donorActivity);
+			udao.donorActivity(donorActivity);
 		} catch (DBException e) {
-			throw new DBException(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
 
 	}
 
-	public void addDonation(DonationRequest dr) throws DBException {
+	public void addDonation(DonationRequest donationRequest) throws ServiceException {
 		try {
-			dao.addDonations(dr);
+			donationDao.addDonations(donationRequest);
 		} catch (DBException e) {
-			throw new DBException(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
-	public void updateDonations(DonorActivity da) throws DBException {
+	public void updateDonations(DonorActivity donorActivity) throws ServiceException {
 		try {
-			dao.updateDonationByDonor(da);
+			donationDao.updateDonationByDonor(donorActivity);
 		} catch (DBException e) {
-			throw new DBException(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
-	public void updateDonationss(DonationRequest drr) throws DBException {
+	public void updateDonationsByAdmin(DonationRequest donationRequest) throws ServiceException {
 		try {
-			String requestType = null;
-			//dao.findByRequestType(requestType);
-			dao.updateDonationByAdmin(drr);
+
+			donationDao.updateDonationByAdmin(donationRequest);
 		} catch (DBException e) {
 
-			throw new DBException(e.getMessage());
+			throw new ServiceException(e.getMessage());
 
 		}
 	}
 
-	public DonationRequest findByRequestType(String requestType) throws DBException {
-		DonationRequest dr = null;
+	public DonationRequest findByRequestType(String requestType) throws ServiceException {
+		DonationRequest donationRequest = null;
 		try {
-			dao.findByRequestType(requestType);
+			donationDao.findByRequestType(requestType);
 		} catch (DBException e) {
-			throw new DBException(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
-		return dr;
+		return donationRequest;
 
 	}
 
-	public DonationRequest request(String requestType) throws DBException {
-		DonationRequest dr = null;
+	public DonationRequest request(String requestType) throws ServiceException {
+		DonationRequest donationRequest = null;
 		try {
-			dao.request(requestType);
+			donationDao.request(requestType);
 		} catch (DBException e) {
-			throw new DBException(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
-		return dr;
+		return donationRequest;
 
 	}
 
